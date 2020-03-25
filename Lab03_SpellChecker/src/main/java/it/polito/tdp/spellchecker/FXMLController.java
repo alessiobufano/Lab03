@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 public class FXMLController {
 
 	private ObservableList<String> list = FXCollections.observableArrayList();
+	private ObservableList<String> listRes = FXCollections.observableArrayList();
 	private Dictionary model;
 	
     @FXML
@@ -32,6 +33,9 @@ public class FXMLController {
 
     @FXML
     private ChoiceBox<String> choiceLang;
+    
+    @FXML
+    private ChoiceBox<String> choiceResearch;
 
     @FXML
     private TextArea txtInput;
@@ -77,7 +81,14 @@ public class FXMLController {
     	String array[] = text.split(" ");
     	for(int i=0; i<array.length;i++)
 			textList.add(array[i]);
-		this.model.spellCheckText(textList);
+    	
+    	String type = this.choiceResearch.getValue();
+    	if(type.equals("Dichotomic"))
+    		this.model.spellCheckTextDichotomic(textList);
+    	else
+    		this.model.spellCheckTextLinear(textList);
+    	
+		
 		
 		for(int j=0; j<this.model.wrongWords().size(); j++)
 			this.txtOutput.appendText(""+this.model.wrongWords().get(j)+"\n");
@@ -93,6 +104,7 @@ public class FXMLController {
     @FXML
     void initialize() {
         assert choiceLang != null : "fx:id=\"choiceLang\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert choiceResearch != null : "fx:id=\"choiceResearch\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtInput != null : "fx:id=\"txtInput\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btmCheck != null : "fx:id=\"btmCheck\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtOutput != null : "fx:id=\"txtOutput\" was not injected: check your FXML file 'Scene.fxml'.";
@@ -103,6 +115,11 @@ public class FXMLController {
         list.addAll("English", "Italian");
         choiceLang.setItems(list);
         choiceLang.setValue("");
+        
+        
+        listRes.addAll("Linear", "Dichotomic");
+        choiceResearch.setItems(listRes);
+        choiceResearch.setValue("Linear");
     }
 
 	public void setModel(Dictionary model) {

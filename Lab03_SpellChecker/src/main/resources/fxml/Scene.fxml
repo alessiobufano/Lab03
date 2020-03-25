@@ -46,9 +46,19 @@
             </HBox>
             <HBox>
                <children>
+                  <Label prefWidth="120.0" text="Type of research:">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ChoiceBox fx:id="choiceResearch" prefWidth="150.0">
+                     <HBox.margin>
+                        <Insets left="-20.0" top="8.0" />
+                     </HBox.margin>
+                  </ChoiceBox>
                   <Button fx:id="btmCheck" mnemonicParsing="false" onAction="#doSpellCheck" text="Spell Check">
                      <HBox.margin>
-                        <Insets left="285.0" top="20.0" />
+                        <Insets left="30.0" top="20.0" />
                      </HBox.margin>
                   </Button>
                </children>
