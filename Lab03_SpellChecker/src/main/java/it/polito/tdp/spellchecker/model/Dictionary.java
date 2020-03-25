@@ -59,51 +59,43 @@ public class Dictionary {
 		
 		int n = this.dictionary.size();
 		this.list.clear();
+		
 		for(int i=0; i<inputTextList.size(); i++)
 		{
 			RichWord rw = null;
 			String w = inputTextList.get(i);
 			int index = ((int) (n/2));
 			int indexMax = n;
-			boolean found=false;
-			while(found==true) {
+			int indexMin = 0;
+			boolean found = false;
+			
+			while(found==false) {
+				
+				index = ((int) ((indexMax+indexMin)/2));
+				
 				if(w.compareTo(this.dictionary.get(index))==0)
 				{
 					rw = new RichWord(w, true);
 					found = true;
 				}	
 				else if(w.compareTo(this.dictionary.get(index))<0)
-				{
 					indexMax = index;
-					index = ((int) (indexMax/2));
-					if(index==0 && w.compareTo(this.dictionary.get(index))!=0)
-					{
-						rw = new RichWord(w, false);
-						found = true;
-					}
-				}
 				else
-				{
-					index += ((int) ((indexMax-index)/2));
-					if(index==(n-1) && w.compareTo(this.dictionary.get(index))!=0)
-					{
-						rw = new RichWord(w, false);
-						found = true;
-					}
-				}
-				if(index==indexMax) 
+					indexMin = index;
+				
+				if(indexMin==(indexMax-1) && w.compareTo(this.dictionary.get(index))!=0) 
 				{
 					rw = new RichWord(w, false);
 					found = true;
 				}
 			}
+			
 			list.add(rw);
 		}
+		
 		return list;
 	}
 	
-	
-
 	public List<String> wrongWords() {
 		List<String> wrongList = new LinkedList<>();
 		for(RichWord r : this.list)
